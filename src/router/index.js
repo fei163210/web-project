@@ -8,6 +8,34 @@ import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import Search from '@/pages/Search';
 import Register from '@/pages/Register';
+
+let OPush = VueRouter.prototype.push;
+let OReplace = VueRouter.prototype.replace;
+
+VueRouter.prototype.push = function (location, resolve, reject) {
+  if (resolve && reject) {
+    OPush.call(this, location, resolve, reject);
+  } else {
+    OPush.call(
+      this,
+      location,
+      () => {},
+      () => {}
+    );
+  }
+};
+VueRouter.prototype.replace = function (location, resolve, reject) {
+  if (resolve && reject) {
+    OReplace.call(this, location, resolve, reject);
+  } else {
+    OReplace.call(
+      this,
+      location,
+      () => {},
+      () => {}
+    );
+  }
+};
 export default new VueRouter({
   // 配置路由
   routes: [
@@ -32,6 +60,9 @@ export default new VueRouter({
         show: true,
       },
       name: 'search',
+      props: $route => {
+        return { message: $route.params.message };
+      },
     },
     {
       path: '/register',

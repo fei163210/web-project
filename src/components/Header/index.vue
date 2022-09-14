@@ -5,9 +5,10 @@
     <div class="top">
       <div class="container">
         <div class="loginList">
-          <p>尚品汇欢迎您！</p>
+          <p>闪购欢迎您！</p>
           <p>
             <span>请</span>
+            <!-- 声明式导航 -->
             <router-link to="/login">登录</router-link>
             <router-link to="/register" class="register">免费注册</router-link>
           </p>
@@ -15,10 +16,10 @@
         <div class="typeList">
           <a href="###">我的订单</a>
           <a href="###">我的购物车</a>
-          <a href="###">我的尚品汇</a>
-          <a href="###">尚品汇会员</a>
+          <a href="###">我的闪购</a>
+          <a href="###">闪购会员</a>
           <a href="###">企业采购</a>
-          <a href="###">关注尚品汇</a>
+          <a href="###">关注闪购</a>
           <a href="###">合作招商</a>
           <a href="###">商家后台</a>
         </div>
@@ -60,14 +61,12 @@ export default {
     };
   },
   methods: {
+    // 编程式导航
     search() {
       // 路由传参 三种方式 1.字符串形式 2. 模板字符串形式 3. 对象传参（常用）
       this.$router.push({
         name: "search",
         params: { message: this.message },
-        query: {
-          k: this.message.toUpperCase(),
-        },
       });
     },
   },
