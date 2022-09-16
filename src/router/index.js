@@ -54,16 +54,12 @@ export default new VueRouter({
       },
     },
     {
-      path: '/search/',
+      path: '/search/:message?',
       component: Search,
       meta: {
         show: true,
       },
       name: 'search',
-      // 函数形式接收props参数
-      // props: $route => {
-      //   return { message: $route.params.message };
-      // },
     },
     {
       path: '/register',

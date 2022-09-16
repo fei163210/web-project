@@ -64,10 +64,14 @@ export default {
     // 编程式导航
     search() {
       // 路由传参 三种方式 1.字符串形式 2. 模板字符串形式 3. 对象传参（常用）
-      this.$router.push({
-        name: "search",
-        params: { message: this.message },
-      });
+      if (this.$route.query) {
+        let location = {
+          name: "search",
+          params: { message: this.message || undefined },
+        };
+        location.query = this.$route.query;
+        this.$router.push(location);
+      }
     },
   },
 };

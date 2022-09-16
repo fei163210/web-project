@@ -17,6 +17,14 @@ export default {
     Header,
     Footer,
   },
+  // 页面挂载时只执行一次
+  mounted() {
+    console.log("放在APP.vue 根目录可以避免重复请求数据");
+
+    this.$store.dispatch("getCateList");
+    this.$store.dispatch("getFloorList");
+    this.$store.dispatch("getBannerList");
+  },
 };
 </script>
 
