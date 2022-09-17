@@ -1,8 +1,10 @@
 <template>
   <!-- 商品分类导航 -->
   <div class="type-nav">
-    <div class="container" @mouseenter="showTypeNav" @mouseleave="closeTypeNav">
-      <h2 class="all">全部商品分类</h2>
+    <div class="container">
+      <h2 class="all" @mouseenter="showTypeNav" @mouseleave="closeTypeNav">
+        全部商品分类
+      </h2>
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -14,7 +16,12 @@
         <a href="###">秒杀</a>
       </nav>
       <transition name="sort">
-        <div class="sort" v-show="show">
+        <div
+          class="sort"
+          v-show="show"
+          @mouseenter="showTypeNav"
+          @mouseleave="closeTypeNav"
+        >
           <div class="all-sort-list2" @click="goSearch">
             <div
               class="item"
@@ -102,11 +109,11 @@ export default {
         let location = { name: "search" };
         let query = { categoryName: categoryname };
         if (categoryid1) {
-          query.categoryId1 = categoryid1;
+          query.category1Id = categoryid1;
         } else if (categoryid2) {
-          query.categoryId2 = categoryid2;
+          query.category2Id = categoryid2;
         } else {
-          query.categoryId3 = categoryid3;
+          query.category3Id = categoryid3;
         }
 
         // 在传参时加上当前目录里的

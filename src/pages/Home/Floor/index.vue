@@ -67,9 +67,7 @@ export default {
   name: "Floor",
   props: ["floor"],
   computed: {},
-  mounted() {
-    console.log(this.floor);
-  },
+  mounted() {},
 };
 </script>
 <style lang="less">

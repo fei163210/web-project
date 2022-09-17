@@ -67,7 +67,7 @@ export default {
       if (this.$route.query) {
         let location = {
           name: "search",
-          params: { message: this.message || undefined },
+          params: { keyword: this.message || undefined },
         };
         location.query = this.$route.query;
         this.$router.push(location);

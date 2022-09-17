@@ -12,6 +12,7 @@ import Register from '@/pages/Register';
 let OPush = VueRouter.prototype.push;
 let OReplace = VueRouter.prototype.replace;
 
+// 重写push和replace方法，避免多次点击时报错
 VueRouter.prototype.push = function (location, resolve, reject) {
   if (resolve && reject) {
     OPush.call(this, location, resolve, reject);
@@ -54,7 +55,7 @@ export default new VueRouter({
       },
     },
     {
-      path: '/search/:message?',
+      path: '/search/:keyword?',
       component: Search,
       meta: {
         show: true,
