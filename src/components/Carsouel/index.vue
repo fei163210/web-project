@@ -23,7 +23,7 @@ export default {
       immediate: true,
       handler() {
         // v-for执行完毕才有结构，刚获取到数据时，v-for可能还没有执行完毕
-        // 下一次dom更新后执行回调z
+        // 下一次dom更新后执行回调
         this.$nextTick(() => {
           var mySwiper = new Swiper(this.$refs.mySwiper, {
             autoplay: true,

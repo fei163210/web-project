@@ -11,16 +11,20 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li class="with-x" v-if="SearchParams.categoryName">
+              {{ SearchParams.categoryName }}<i v-on:click="removeCname()">×</i>
+            </li>
+            <li class="with-x" v-if="SearchParams.keyword">
+              {{ SearchParams.keyword }}<i v-on:click="removeKey()">×</i>
+            </li>
+            <li class="with-x" v-if="SearchParams.trademark">
+              {{ SearchParams.trademark.split(":")[1]
+              }}<i v-on:click="removeTrand()">×</i>
+            </li>
           </ul>
         </div>
-
         <!--selector-->
-        <SearchSelector />
-
+        <SearchSelector @brand="getBrand" />
         <!--details-->
         <div class="details clearfix">
           <div class="sui-navbar">
@@ -149,7 +153,7 @@ export default {
         // 分页器用的，代表是当前第几页
         pageNo: 1,
         // 代表每一个展示数据个数
-        pageSize: 3,
+        pageSize: 10,
         // 平台售卖属性操作带的参数
         props: [],
         // 品牌
@@ -176,6 +180,42 @@ export default {
   methods: {
     getData() {
       this.$store.dispatch("getSearchList", this.SearchParams);
+    },
+    removeCname() {
+      this.SearchParams.categoryName = undefined;
+      this.SearchParams.category1Id = undefined;
+      this.SearchParams.category2Id = undefined;
+      this.SearchParams.category3Id = undefined;
+      this.getData();
+      // 用于删除地址栏的query参数
+      this.$router.push({ name: "search", params: this.$route.params });
+    },
+    removeKey() {
+      this.SearchParams.keyword = undefined;
+      this.getData();
+      // 用于删除掉搜索框内的值
+      this.$bus.$emit("removeKey");
+      // 用于删除掉地址栏的params参数,地址再跳转一次,自己跳自己
+      this.$router.push({ name: "search", query: this.$route.query });
+    },
+    removeTrand() {
+      this.SearchParams.trademark = undefined;
+      this.getData();
+    },
+    // 绑定自定义事件
+    getBrand(marklist) {
+      this.SearchParams.trademark = `${marklist.tmId}:${marklist.tmName}`;
+      this.getData();
+    },
+  },
+  // 监听路由，当路由变化时，重新发请求，获取数据，显示数据
+  watch: {
+    $route() {
+      this.SearchParams.category1Id = "";
+      this.SearchParams.category2Id = "";
+      this.SearchParams.category3Id = "";
+      Object.assign(this.SearchParams, this.$route.query, this.$route.params);
+      this.getData();
     },
   },
 };

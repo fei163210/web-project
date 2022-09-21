@@ -34,3 +34,27 @@ export const ReqSearchList = params => {
     data: params,
   });
 };
+// 请求验证码数据
+export const ReqCode = phone => {
+  return requests({
+    method: 'get',
+    url: `/user/passport/sendCode/${phone}`,
+  });
+};
+
+// 注册
+export const ReqRegister = data => {
+  return requests({
+    method: 'post',
+    url: '/user/passport/register',
+    data,
+  });
+};
+// 登录
+export const ReqLogin = data => {
+  return requests({
+    method: 'post',
+    url: '/user/passport/login',
+    data,
+  });
+};

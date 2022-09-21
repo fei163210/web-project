@@ -11,6 +11,7 @@
 <script>
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+// import { ReqLogin } from "@/api";
 export default {
   name: "App",
   components: {
@@ -19,11 +20,11 @@ export default {
   },
   // 页面挂载时只执行一次
   mounted() {
-    console.log("放在APP.vue 根目录可以避免重复请求数据");
-
     this.$store.dispatch("getCateList");
     this.$store.dispatch("getFloorList");
     this.$store.dispatch("getBannerList");
+    // 测试一下请求数据
+    // console.log(ReqLogin({ phone: "510402381", password: "123456" }));
   },
 };
 </script>

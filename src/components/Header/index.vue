@@ -4,13 +4,21 @@
     <!-- 头部的第一行 -->
     <div class="top">
       <div class="container">
-        <div class="loginList">
+        <div class="loginList" v-if="!User.phone">
           <p>闪购欢迎您！</p>
           <p>
             <span>请</span>
             <!-- 声明式导航 -->
             <router-link to="/login">登录</router-link>
             <router-link to="/register" class="register">免费注册</router-link>
+          </p>
+        </div>
+        <div class="loginList" v-else>
+          <p>闪购欢迎您！</p>
+          <p>
+            <span>{{ User.phone }}</span>
+            <!-- 声明式导航 -->
+            <a class="register" @click="clear">退出登录</a>
           </p>
         </div>
         <div class="typeList">
@@ -53,12 +61,22 @@
   </header>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   name: "",
   data() {
     return {
       message: "",
     };
+  },
+  computed: {
+    // 负责解构数据
+    // state 为大仓库
+    ...mapState({
+      User: (state) => {
+        return state.login.user;
+      },
+    }),
   },
   methods: {
     // 编程式导航
@@ -73,6 +91,16 @@ export default {
         this.$router.push(location);
       }
     },
+    clear() {
+      this.$store.state.login.user = {};
+      localStorage.removeItem("ha", "login");
+      this.$router.push("/login");
+    },
+  },
+  mounted() {
+    this.$bus.$on("removeKey", () => {
+      this.message = "";
+    });
   },
 };
 </script>

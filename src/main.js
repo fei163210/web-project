@@ -25,4 +25,7 @@ new Vue({
   router,
   // 注册仓库,这时候实例身上就会多一个属性 $store属性
   store,
+  beforeCreate() {
+    Vue.prototype.$bus = this;
+  },
 }).$mount('#app');
